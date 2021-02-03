@@ -1,0 +1,267 @@
+#! /bin/sh
+#sysconf System Configuration, gurkan@linuks.mine.nu, www.linuks.mine.nu/ibackup/
+version="0.68"
+
+if [ "${1}x" = "-ax" ]; then
+    h="-a"
+fi
+
+#which on solaris does not return non zero
+#if it does not find any binaries
+which()
+{
+    p=`echo $PATH | sed "s,:, ,g"`
+    nn=`find $p -name "$1" |wc -l`
+    if [ $nn = 0 ]; then
+        return 1;
+    else
+        return 0;
+    fi
+}
+				    
+css()
+{
+cat << EOF
+<style type="text/css"><!--
+body { 
+    margin-left: 5%; 
+    margin-right: 5%; 
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;  
+    font-size: small; 
+} 
+         
+pre { 
+    background: #bbddff; 
+    font-family: monospace; 
+    font-size: small; 
+    padding: 4px; 
+    border: 1px solid #6688aa; 
+}
+--></style>
+EOF
+}
+
+command()
+{
+    case "$1" in cat*)
+	f=`echo "$1" | sed "s,cat,,"`
+	#echo $f
+	if [ -f $f ]; then
+	    if [ ! "${h}x" = "-ax" ]; then
+	    echo -e "<h3><a name=\"${1}\">$2</a></h3>"
+	    fi
+	    echo "# $1"
+	    if [ ! "${h}x" = "-ax" ]; then
+	    echo "<pre>"
+	    fi
+	    cat $f
+	    if [ ! "${h}x" = "-ax" ]; then
+	    echo "</pre>"
+	    fi
+	fi
+    ;;
+    *)
+    which `echo $1 | sed "s/ .*$//g"` >/dev/null && {
+	if [ ! "${h}x" = "-ax" ]; then
+	echo -e "<h3><a name=\"${1}\">$2</a></h3>"
+	else
+	echo
+	fi
+	echo "# $1"
+	if [ ! "${h}x" = "-ax" ]; then
+	echo "<pre>"
+	fi
+    	eval $@
+	if [ ! "${h}x" = "-ax" ]; then
+	echo "</pre>"
+	fi
+    }
+    ;;
+    esac
+}
+
+titleindex()
+{
+if [ ! "${h}x" = "-ax" ]; then
+    builtin echo -ne "<h2><a href=\"#${1}\">$1</a></h2>"
+else
+    echo $1
+fi
+}
+
+subindex()
+{
+if [ ! "${h}x" = "-ax" ]; then
+    echo -e "<a href=\"#${1}\">$1</a><br>"
+else
+    echo $1
+fi
+}
+
+title()
+{
+if [ ! "${h}x" = "-ax" ]; then
+    echo "<hr>"
+    echo -e "<h2><a name=\"${1}\">$1</a></h2>"
+else
+    echo $1
+fi
+}
+
+if [ ! "${1}x" = "-ax" ]; then
+cat << EOF
+<html>
+<head>
+<title>System Configuration `hostname`</title>
+EOF
+else
+    echo System Configuration `hostname`
+fi
+
+#<link rel="stylesheet" title="default" href="report.css">
+if [ ! "${1}x" = "-ax" ]; then
+    css
+fi
+
+if [ ! "${1}x" = "-ax" ]; then
+cat << EOF
+</head>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#6688aa" ALINK="#777777" VLINK="#777777">
+EOF
+fi
+
+if [ ! "${1}x" = "-ax" ]; then
+echo "<h1>System Configuration</h1>"
+echo "<h2>for `hostname`, `date`</h2>"
+else
+echo "System Configuration"
+echo "for `hostname`, `date`"
+fi
+
+#create index with anchors
+titleindex "Hardware and Device Information"
+titleindex "Operating System Information"
+titleindex "Filesystem Information"
+titleindex "Network Information"
+titleindex "User and Login Information"
+titleindex "Security Information"
+
+title "Hardware and Device Information"
+command "cat /proc/cpuinfo"
+command "free -m"
+command "lspci"
+command "hostid"
+command "eeprom"
+command "dmesg | cut -c-80"
+command "ioscan -fn"
+
+title "Operating System Information"
+command "uname -a"
+command "uptime"
+command "ulimit -a"
+command "rpm -qa"
+command "dpkg -l"
+command "pkginfo"
+command "showrev -a"
+command "pkg_info"
+command "cat /etc/modules"
+command "/usr/sbin/modinfo"
+command "who -r"
+command "isainfo"
+command "isainfo -b"
+command "prtconf"
+command "/usr/platform/`uname -m`/sbin/prtdiag -v | grep OBP"
+command "ls /etc/*elease; cat /etc/*elease"
+command "ls /etc/*ersion; cat /etc/*ersion"
+command "psrinfo -v"
+command "sysctl -a"
+command "ndd /dev/arp \?"
+command "ndd /dev/icmp \?"
+command "ndd /dev/ip \?"
+command "ndd /dev/tcp \?"
+command "ndd /dev/udp \?"
+command "cat /etc/sysctl.conf"
+command "ps -ef"
+command "vrms"
+command "deborphan"
+command "cat /etc/default/su"
+command "cat /etc/default/kbd"
+command "cat /etc/default/login"
+command "cat /etc/default/passwd"
+command "cat /etc/default/inetinit"
+command "cat /etc/issue.net"
+command "ioscan -f"
+command "swap -s"
+command "swap -l"
+command ' cat /var/sadm/install_data/Solaris*log | grep "^\*\*\* Install"'
+
+title "Filesystem Information"
+command "df -k"
+command "cat /etc/fstab"
+command "cat /etc/vfstab"
+command "mount"
+command "fdisk -l"
+command "cat /etc/lvm/md.tab"
+command "metastat"
+command "disklabel -r wd0"
+command "vxdisk list"
+command "vxdg list"
+command "vxprint -sg"
+command "vxprint -lp"
+command "vxinfo"
+command "vxtask list"
+
+title "Network Information"
+command "cat /etc/hosts"
+command "cat /etc/resolv.conf"
+command "netstat -nr"
+command "netstat -na"
+command "netstat -ni"
+command "arp -a"
+command "ifconfig -a"
+command "cat /etc/defaultrouter"
+command "cat /etc/nodename"
+command "cat /etc/hostname"
+command "cat /etc/system"
+command "cat /etc/netmasks"
+command "cat /etc/network/interfaces"
+command "cat /etc/hostname.*"
+command "cat /etc/*inetd.conf"
+command "cat /etc/notrouter"
+command "cat /etc/ethers"
+command "cat /etc/nsswitch.conf"
+command "cat /etc/hosts.allow"
+command "cat /etc/hosts.deny"
+command "ls -la /etc/init.d/"
+command "cat /etc/ipf.conf"
+command "tcpdchk"
+command "ipfstat"
+command "ipfstat -i"
+command "ipchains -nL"
+command "iptables -nL"
+command "ipmasqadm portfw -ln"
+
+title "User and Login Information"
+command "cat /etc/passwd"
+command "cat /etc/shadow"
+command "cat /etc/group"
+command "cat /etc/shells"
+command "cat /etc/ftpusers"
+command "env"
+command "crontab -l"
+command "last -n 8"
+command 'lastlog | grep -v "Never logged in"'
+
+title "Security Information"
+command "chkrootkit -q"
+command "/usr/local/tripwire/tfs/bin/tripwire -m c"
+#command ' cat /usr/local/tripwire/tfs/policy/twpol.txt | grep -v "^$\|^#\|\ *#"'
+#command "aide --check"
+#command "tiger"
+
+if [ ! "${1}x" = "-ax" ]; then
+echo "</body>"
+echo "</html>"
+else
+echo
+fi

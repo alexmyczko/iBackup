@@ -1,0 +1,62 @@
+TODO	support for setting root to something else than the default /
+	if [ ${ROOT}x = x ]; then ROOT=/; fi
+	echo "Working in $ROOT (\$ROOT)"
+	add support for db2, http://www.ibm.com/db2
+
+2.27	fixed file permissions for solaris package, sysconf title,
+	added an example for sending the sysconf output by email,
+	fixed the user backup part
+2.26    added veritas filesystem info to sysconf
+	support for user configfiles and backing up current users config files
+	support for tripwire, updated sysconf with security checks and
+	login information, better which function and and sysconf for solaris,
+	rpm spec file
+2.25    added example for restore, improved sysconf
+2.24	added support for openpgp public key server, aide and mailman,
+	added make pkg for making a solaris package, made sysconf nicer
+	looking and support asciimode
+2.23    added /etc/lvm to solaris config, and metastat to sysconf,
+        support for finjan software, zsh support, example for mailing the
+	configuration, manpage for sysconf (thanks andre luis lopes),
+	added /usr/local/etc to solaris config
+2.22	added /var/named/ to bind config (thanks mario and aleksander)
+	added configuration howto, cleanup html
+2.21	works on freebsd and netbsd now, added nokia ipso config,
+        commented proc part so it runs on freebsd/netbsd/ipso /bin/sh,
+	sysconf now runs in /bin/sh also
+2.20	/bin/sh should be supported in Solaris now, help output of
+        script rewritten, documentation updated
+2.19	fixed output information ($1/$@), added system configuration
+	html report
+2.15	support for online dumping mysql databases added (mysql-dump)
+	i can keep the name "iBackup", added missing conf to postgresql-dump
+2.14	fix in postgresql-dump
+        added seconds to the name of the backupfile
+2.13	added support for citrix icaclient configuration
+	makefile typo
+2.12	basic support for freebsd
+	manpage
+2.11	exclude viruswall logs (they get quite big)
+	support for postgresql (by filesystem or dump)
+	fix for mysql (added /etc/mysql), changed name to mysql-fs
+	added netstat -s to linux and solaris
+	example for cronjob
+2.1	fixed some config (solaris), added --dont-upload, --compress,
+	added --auto which guesses what to backup make install doesn't overwrite
+	config files anymore to install the example config use make install-config
+	i have been contacted by ibackup.com because of a trademark name issue,
+	it might be possible the name will change in the future, i'm open to
+	suggestions. this was released because of bugfixes and i can't wait for
+	trademark issue	to be resolved (because that will hurt my users)
+	read more about this at www.linuks.mine.nu/ibackup/nameissue/
+	contact me if you can add support for aix, hp-ux, irix, tru64 or other operating
+	systems
+2.03	added support for
+	/boot/grub/grub.conf and /boot/grub/menu.lst, /boot/config*
+	ibackup script and configuration
+	mysql database (pre and post backup commandlines)
+2.02	bugfix for checkpoint fw config
+2.01	small bugfixes for raptor firewall config and checkpoint fw config
+2.0	support for a few commercial products added
+1.9	support for solaris system configuration added
+1.8	bugfix for upload command

@@ -1,0 +1,23 @@
+i pkginfo
+i COPYING
+!default 0755 root root
+d none /etc
+f none /etc/ibackup.conf=ibackup.conf 0700 root root
+d none /usr
+d none /usr/bin
+f none /usr/bin/ibackup=ibackup
+f none /usr/bin/sysconf=sysconf
+d none /usr
+d none /usr/share
+d none /usr/share/man
+d none /usr/share/man/man1
+f none /usr/share/man/man1/ibackup.1.gz 0644 root root
+f none /usr/share/man/man1/sysconf.1.gz 0644 root root
+d none /usr/local
+d none /usr/local/doc
+d none /usr/local/doc/ibackup
+f none /usr/local/doc/ibackup.html 0644 root root
+f none /usr/local/doc/ibackup.png 0644 root root
+f none /usr/local/doc/alpha.html 0644 root root
+f none /usr/local/doc/changelog 0644 root root
+f none /usr/local/doc/COPYING 0644 root root

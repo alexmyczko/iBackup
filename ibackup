@@ -1,0 +1,377 @@
+#! /bin/sh
+#iBackup, gurkan@linuks.mine.nu, www.linuks.mine.nu/ibackup/
+VERSION=2.27
+
+if [ "x$ZSH_NAME" != x ]; then emulate sh; fi
+
+#look for $HOME/.ibackuprc and /etc/ibackup.conf
+if [ -f $HOME/.ibackuprc ]; then
+    echo "Using $HOME/.ibackuprc"
+    . $HOME/.ibackuprc
+else
+    if [ -f /etc/ibackup.conf ]; then
+	echo "Using /etc/ibackup.conf"
+	. /etc/ibackup.conf
+    else
+	echo "Error: No configuration found, please set up"
+	echo "$HOME/.ibackuprc or /etc/ibackup.conf."
+	exit 1
+    fi
+fi
+
+if [ "`id`" != "`id root`" ]; then
+    echo "Warning: probably can't read some files, you ain't root" >&2
+fi
+
+#all umask are belong to me
+umask 077
+
+#clear excludes file
+rm -rf /tmp/excludes
+touch /tmp/excludes
+
+case $@ in *-e*|*--encrypt*)
+    encrypt=1;;
+esac
+
+case $@ in *--compress*)
+    compress=1;;
+esac
+
+case $@ in *-n*|*--dont-compress*)
+    compress=0;;
+esac
+
+case $@ in *-u*|*--upload*)
+    upload=1;;
+esac
+
+case $@ in *--dont-upload*)
+    upload=0;;
+esac
+
+case $@ in *linux*)
+    rm -rf /tmp/sysinfo
+    mkdir -p /tmp/sysinfo
+    which rpm >/dev/null && rpm -qa >/tmp/sysinfo/rpm_installed
+    which dpkg >/dev/null && dpkg -l >/tmp/sysinfo/deb_installed
+    which dpkg >/dev/null && dpkg --get-selections >/tmp/sysinfo/deb_installed_gs
+    which pkgtool >/dev/null && ls -la /var/log/packages >/tmp/sysinfo/tgz_installed
+    dmesg >/tmp/sysinfo/dmesg
+    fdisk -l >/tmp/sysinfo/fdisk-l
+    ifconfig >/tmp/sysinfo/ifconfig
+    netstat -nr >/tmp/sysinfo/netstat-nr
+    netstat -plunt >/tmp/sysinfo/netstat-plunt
+    netstat -s >/tmp/sysinfo/netstat-s
+    dir="$dir var/spool/cron etc tmp/sysinfo/* usr/src/linux/.config boot/grub/menu.lst boot/grub/grub.conf boot/config*"
+    ;;
+esac
+
+case $@ in *solaris*)
+    cd /tmp
+    rm -rf /tmp/sysinfo
+    mkdir -p /tmp/sysinfo
+    dmesg >sysinfo/dmesg
+    hostid >sysinfo/hostid
+    modinfo >sysinfo/modinfo
+    ifconfig -a >sysinfo/ifconfig-a
+    netstat -nr >sysinfo/netstat-nr
+    netstat -na >sysinfo/netstat-na
+    netstat -s >sysinfo/netstat-s
+    showrev -a >sysinfo/showrev-a
+    pkginfo >sysinfo/pkginfo
+    who -r >sysinfo/who-r
+    uname -a >sysinfo/uname-a
+    cat /etc/*release | awk '{ for (i=1; i<=NF; i++) printf "%s ",$i; printf "\n" }' 2> /dev/null >sysinfo/release
+    echo Machine running in `isainfo -b` bit mode >sysinfo/cpubits
+    prtconf |grep -i "Memory size" >sysinfo/memory
+    psrinfo -v| awk '{ for (i=1; i<=NF; i++) printf "%s ",$i; printf "\n" }' 2> /dev/null >sysinfo/cpuspeed
+
+    echo "" >sysinfo/interfacesettings
+    for a in `ifconfig -a |awk '{ print $1 }' |grep : |grep -v lo |sed s/://`; do
+        name=`echo $a |sed s/[0-9]//g`
+        num=`echo $a |sed s/[a-z]//g`
+        echo interface $name instance $num >>sysinfo/interfacesettings
+        ndd -set /dev/$name instance $num >>sysinfo/interfacesettings
+        for b in instance link_speed link_mode adv_autoneg_cap adv_100hdx_cap adv_100fdx_cap; do
+            echo -n "ndd /dev/$name $b" >>sysinfo/interfacesettings
+            ndd /dev/$name $b >>sysinfo/interfacesettings
+        done
+    done
+
+    dir="$dir tmp/sysinfo"
+    dir="$dir etc/lvm var/spool/cron etc/ssh2 etc/ssh etc/host* etc/inet etc/defaultrouter etc/notrouter etc/ethers etc/passwd etc/group etc/inetd.conf etc/inittab etc/issue etc/netmasks etc/nodename etc/nsswitch.conf etc/profile etc/shadow etc/resolv.conf etc/staticroutes.conf etc/vfstab etc/system etc/rc0.d etc/rc1.d etc/rc2.d etc/rc3.d etc/rcS.d etc/init.d usr/local/etc"
+    ;;
+esac
+
+case $@ in *freebsd*|*netbsd*|*openbsd*|*bsd*)
+    cd /tmp
+    rm -rf /tmp/sysinfo
+    mkdir -p /tmp/sysinfo
+    dmesg >sysinfo/dmesg
+    ifconfig -a >sysinfo/ifconfig-a
+    netstat -nr >sysinfo/netstat-nr
+    netstat -na >sysinfo/netstat-na
+    netstat -s >sysinfo/netstat-s
+    uname -a >sysinfo/uname-a
+    pkg_info >sysinfo/pkg_info
+
+    dir="$dir tmp/sysinfo"
+    dir="$dir etc usr/local/etc var/cron"
+esac
+
+case $@ in *ipso*)
+    #restore
+    #clish -c "set restore manual filename.tgz"
+    clish -c "set backup manual filename `hostname`"
+    clish -c "set backup manual on"
+
+    dir="$dir var/backup/`hostname`_*.tgz"
+esac
+
+case $@ in *finjan*)
+    #user surfingate, defaultpwd finjan
+    #this won't work non-interactive yet, as i don't have any finjan
+    #on solaris to work on it and test.
+    su - oracle -c "csh -c /opt/Oracle/app/oracle/admin/7.3.4/bin/exp"
+
+    dir="$dir usr/local/Finjan/Finjanserver/config/*.cfg"
+esac
+
+case $@ in *rainfinity*)
+    dir="$dir /opt/rainfinity/rain/conf/*"
+esac
+
+case $@ in *sysconf*)
+    mkdir -p /tmp/sysconf
+    sysconf > /tmp/sysconf/sysconf.html
+
+    dir="$dir tmp/sysconf"
+esac
+
+case $@ in *squid*)
+    dir="$dir usr/local/squid/etc/* etc/squid/* etc/squid.conf etc/init.d/squid"
+esac
+
+case $@ in *apache*)
+    dir="$dir usr/local/apache/conf/* usr/local/apache/htdocs/* etc/apache/* etc/init.d/apache"
+esac
+
+case $@ in *citrix*)
+    dir="$dir usr/lib/ICAClient/config"
+esac
+
+#case $@ in *proc*)
+#    rm -rf /tmp/proc
+#    mkdir -p /tmp/proc
+#    #grep -vE "^/proc/[0-9]+/"
+#    find /proc -name "*" -type f |grep -v "[0-9]" |grep -v "kmsg" |grep -v "kcore" |grep -v "self" |tail +2 |while read a; do cat $a >/tmp/proc/`echo ${a:1}|sed "s,/,_,g"`; done
+#    dir="$dir tmp/proc"
+#    ;;
+#esac
+
+case $@ in *userconf*)
+    #home .dotconf files
+    dir="$dir `find /root -maxdepth 1 -name .\*`"
+    dir="$dir `find /home -maxdepth 2 -name .\*`"
+    ;;
+esac
+
+case $@ in *bind*)
+    dir="$dir var/cache/bind var/named";;
+esac
+
+case $@ in *mysql-fs*)
+    pre="/etc/init.d/mysql stop"
+    post="/etc/init.d/mysql start"
+    dir="$dir var/lib/mysql etc/mysql";;
+esac
+
+case $@ in *mysql-dump*)
+    mysqldump --set-variable=max_allowed_packet=32M --all-databases > /tmp/db.mysql
+    dir="$dir etc/mysql tmp/db.mysql";;
+esac
+
+case $@ in *postgresql-fs*)
+    pre="/etc/init.d/postgresql stop"
+    post="/etc/init.d/postgresql start"
+    dir="$dir var/lib/postgres etc/postgresql";;
+esac
+
+case $@ in *postgresql-dump*)
+    su - postgres -c "psql -l" >/tmp/db.tables
+    su - postgres -c "/usr/lib/postgresql/bin/pg_dumpall >/tmp/db.pg"
+    #|gzip >/tmp/db.pg.gz"
+    dir="$dir tmp/db.pg tmp/db.tables etc/postgresql"
+    post='echo Removing temporary database dumps... && rm /tmp/db.pg* /tmp/db.tables';;
+esac
+
+case $@ in *self*)
+    dir="$dir usr/bin/ibackup etc/ibackup.conf";;
+esac
+
+case $@ in *pks*)
+    dir="$dir var/lib/pks etc/pks/*";;
+esac
+
+case $@ in *mailman*)
+    dir="$dir var/lib/mailman etc/mailman/*";;
+esac
+
+case $@ in *aide*)
+    dir="$dir var/lib/aide etc/aide/*";;
+esac
+
+case $@ in *tripwire*)
+    dir="$dir usr/local/tripwire/tfs/bin/twserver.cert usr/local/tripwire/tfs/bin/*.txt usr/local/tripwire/tfs/bin/*.cfg usr/local/tripwire/tfs/key/* usr/local/tripwire/tfs/policy/* usr/local/tripwire/tfs/report/*.twr usr/local/tripwire/tfs/db/database.twd";;
+esac
+
+case $@ in *home*)
+    H=`echo $HOME |sed s,/,,1`
+    dir="$dir $H/.gnupg $H/.ssh $H/.irssi $H/.lftp $H/.links $H/.mc";;
+esac
+
+case $@ in *sb_fullcluster*)
+    dir="$dir opt/fullcluster/etc opt/fullcluster/web_config/conf";;
+esac
+        
+case $@ in *sb_servercluster*)
+    dir="$dir opt/SBSCbase etc/opt";;
+esac
+ 
+case $@ in *checkpoint*)
+    dir="$dir `echo $FWDIR |sed "s,/,var/,"`";;
+esac
+
+case $@ in *viruswall*)
+    find /etc/iscan/ -type f -name "lpt*" -print |sed "s,/,," >>/tmp/excludes
+    find /etc/iscan/ -type f -name "log*" -print |sed "s,/,," >>/tmp/excludes
+    dir="$dir etc/iscan opt/trend/ISADMIN/IScan.adm/conf opt/trend/ISBASE/IScan.BASE/intscan.ini*";;
+esac
+
+case $@ in *raptor*)
+    /usr/raptor/bin/changelog
+    #do NOT go subdirs for raptor!
+    ifconfig -a >/usr/adm/sg/ifconfig-a.txt
+    netstat -nr >/usr/adm/sg/netstat-nr.txt
+    dir="$dir `for a in usr/adm/sg/*; do if [ ! -d $a ]; then echo $a; fi; done`"
+    find /usr/adm/sg/ -type d |sed "s,/,," |tail +2 >>/tmp/excludes
+    echo "usr/adm/sg/logfile" >>/tmp/excludes
+    ;;
+esac
+
+case $@ in *example*)
+    #do NOT go into subdirs for example!
+    dir="$dir `for a in some/dir/*; do if [ ! -d $a ]; then echo $a; fi; done`"
+    #exclude subdirectories
+    find /some/dir/ -type d |sed "s,/,," |tail +2 >>/tmp/excludes
+    ;;
+esac
+
+case $@ in *macosx*)
+    dir="$dir etc Library/Preferences"
+    ;;
+esac
+
+case $@ in *auto*)
+    if [ ! -z "$FWDIR" ]; then backup="$backup checkpoint"; fi
+    
+    #ibackup $backup
+    exit
+    ;;
+esac
+
+if [ "x${1}" = "x" ]; then
+    echo "$0 ${VERSION}, backup directory is set to ${dest}"
+    echo "Usage: $0 [OPTION]... [CONFIGURATION]..."
+    echo "Backup configuration files."
+    echo
+cat << EOF
+  -e, --encrypt          encrypt the tarball
+  -n, --dont-compress    don't compress the tarbal
+      --compress         compress the tarball
+  -u, --upload           upload the tarball (scp/ftp/whatever)
+      --dont-upload      don't upload the tarball
+  linux                  system configuration Linux
+  solaris                system configuration Solaris
+  bsd                    system configuration FreeBSD, NetBSD, OpenBSD
+  sysconf                generate HTML system configuration
+  squid                  Squid configuration
+  apache                 Apache configuration
+  citrix                 Citrix ICA Client configuration
+  bind                   Bind configuration
+  mailman                Mailman configuration and data
+  pks                    OpenPGP Public Key Server configuration and data
+  aide                   AIDE configuration
+  tripwire               Tripwire configuration and db
+  mysql-fs               MySQL configuration and db (filesystem)
+  mysql-dump             MySQL configuration and db (dump)
+  postgresql-fs          PostgreSQL configuration and db (filesystem)
+  postgresql-dump        PostgreSQL configuration and db (dump)
+  sb_fullcluster         Stonebeat Fullcluster configuration
+  sb_servercluster       Stonebeat Servercluster configuration
+  checkpoint             Checkpoint Firewall configuration
+  ipso                   Checkpoint and system configuration of Nokia IPSO
+  viruswall              Trend Micro Interscan Viruswall configuration
+  raptor                 Raptor/Symantec Firewall configuration
+  finjan                 Finjan Surfingate configuration
+  rainfinity             Rainfinity configuration
+
+EOF
+#echo "$0 [`cat $0 | grep "^case"| sed "s/)//g;s,*,,g" |awk '{ printf ("%s|", $4) }'`]"; echo
+    exit
+fi
+
+if [ "x${dir}" = "x" ]; then
+    echo "invalid configuration"
+    echo
+    exit
+fi
+
+if [ ! -d $dest ]; then mkdir -p $dest; fi
+backupdir=$dest/`hostname`_`date +%d%m%Y_%H%M%S`.tar
+
+cd /
+echo "Please wait while archiving $@ (${dest})..."
+#execute pre backup commands if any
+if [ ! "x${pre}" = "x" ]; then $pre; fi
+#create file one-file-system same-permissions
+tar cflpX $backupdir /tmp/excludes $dir
+#execute post backup commands if any
+if [ ! "x${post}" = "x" ]; then $post; fi
+#restore with cd / && tar xfp backup.tar
+chmod 600 $backupdir
+
+#clean up
+rm -rf /tmp/sysinfo /tmp/excludes /tmp/proc /tmp/sysconf
+
+if [ -f "${backupdir}" ]; then
+    file=${backupdir}
+else
+    echo "tar failed..."
+    exit 1
+fi
+
+if [ ! "x${compress}" = "x0" ]; then
+    echo "Please wait while compressing ${1}..."
+    gzip $file || compress $file
+
+    if [ -f ${file}.gz ]; then file=${file}.gz; fi
+    if [ -f ${file}.Z ]; then file=${file}.Z; fi
+fi
+
+if [ ! "x${encrypt}" = "x0" ]; then
+    if [ ! -f "`which openssl`" ]; then
+	echo "openssl not found... aborting"
+	exit 1
+    fi
+
+    echo "Please wait while encrypting ${file}..."
+    openssl enc -bf -e -k $password -in $file -out ${file}.bf && rm $file
+    if [ -f ${file}.bf ]; then file=${file}.bf; fi    
+fi
+
+if [ ! "x${upload}" = "x0" ]; then
+    echo "Please wait while uploading $file..."
+    eval "$uploadcmd"
+fi

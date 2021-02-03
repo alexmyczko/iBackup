@@ -1,0 +1,1038 @@
+<html>
+<head>
+<title>System Configuration alpha3</title>
+<style type="text/css"><!--
+body { 
+    margin-left: 5%; 
+    margin-right: 5%; 
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;  
+    font-size: small; 
+} 
+         
+pre { 
+    background: #bbddff; 
+    font-family: monospace; 
+    font-size: small; 
+    padding: 4px; 
+    border: 1px solid #6688aa; 
+}  
+--></style>
+</head>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#6688aa" ALINK="#777777" VLINK="#777777">
+<h1>System Configuration</h1>
+<h2>for alpha3, Sun Apr  6 14:43:13 CEST 2003</h2>
+<h2><a href="#Hardware and Device Information">Hardware and Device Information</a></h2><h2><a href="#Operating System Information">Operating System Information</a></h2><h2><a href="#Filesystem Information">Filesystem Information</a></h2><h2><a href="#Network Information">Network Information</a></h2><h2><a href="#User and Login Information">User and Login Information</a></h2><hr>
+<h2><a name="Hardware and Device Information">Hardware and Device Information</a></h2>
+<h3><a name="cat /proc/cpuinfo"></a></h3>
+# cat /proc/cpuinfo
+<pre>
+cpu			: Alpha
+cpu model		: EV5
+cpu variation		: 7
+cpu revision		: 0
+cpu serial number	: 
+system type		: Alcor
+system variation	: Alcor
+system revision		: 0
+system serial number	: 
+cycle frequency [Hz]	: 333333333 
+timer frequency [Hz]	: 1024.00
+page size [bytes]	: 8192
+phys. address bits	: 40
+max. addr. space #	: 127
+BogoMIPS		: 331.35
+kernel unaligned acc	: 0 (pc=0,va=0)
+user unaligned acc	: 0 (pc=0,va=0)
+platform string		: Digital AlphaStation 500/333
+cpus detected		: 1
+</pre>
+<h3><a name="free -m"></a></h3>
+# free -m
+<pre>
+             total       used       free     shared    buffers     cached
+Mem:            58         54          4         61          4         29
+-/+ buffers/cache:         20         38
+Swap:          237         40        197
+</pre>
+<h3><a name="lspci"></a></h3>
+# lspci
+<pre>
+00:06.0 Ethernet controller: Digital Equipment Corporation DECchip 21040 [Tulip] (rev 24)
+00:08.0 VGA compatible controller: Digital Equipment Corporation PBXGB [TGA2] (rev 22)
+00:09.0 SCSI storage controller: QLogic Corp. ISP1020 Fast-wide SCSI (rev 02)
+00:0a.0 Non-VGA unclassified device: Intel Corp. 82375EB (rev 05)
+</pre>
+<h3><a name="hostid"></a></h3>
+# hostid
+<pre>
+ccc19420
+</pre>
+<h3><a name="dmesg |cut -c-80"></a></h3>
+# dmesg |cut -c-80
+<pre>
+Linux version 2.2.20 (herbert@cardolan) (gcc version 2.95.4 20011006 (Debian pre
+Booting GENERIC on Alcor variation Alcor using machine vector Alcor from SRM
+Command line: ro root=/dev/sda1
+Using epoch = 1952
+Console: colour VGA+ 80x25
+Calibrating delay loop... 331.48 BogoMIPS
+Memory: 59536k available
+Dentry hash table entries: 8192 (order 4, 128k)
+Buffer cache hash table entries: 65536 (order 6, 512k)
+Page cache hash table entries: 8192 (order 3, 64k)
+POSIX conformance testing by UNIFIX
+Alpha PCI BIOS32 revision 0.04
+PCI: Probing PCI hardware
+Linux NET4.0 for Linux 2.2
+Based upon Swansea University Computer Society NET3.039
+NET4: Unix domain sockets 1.0 for Linux NET4.0.
+NET4: Linux TCP/IP 1.0 for NET4.0
+IP Protocols: ICMP, UDP, TCP
+TCP: Hash tables configured (ehash 65536 bhash 65536)
+Initializing RT netlink socket
+Starting kswapd v 1.5 
+parport0: PC-style at 0x3bc [SPP,PS2]
+parport_probe: failed
+parport0: no IEEE-1284 device present.
+Serial driver version 4.27 with no serial options enabled
+ttyS00 at 0x03f8 (irq = 4) is a 16550A
+ttyS01 at 0x02f8 (irq = 3) is a 16550A
+pty: 256 Unix98 ptys configured
+lp0: using parport0 (polling).
+RAM disk driver initialized:  16 RAM disks of 8192K size
+loop: registered device at major 7
+Floppy drive(s): fd0 is 2.88M
+FDC 0 is a National Semiconductor PC87306
+qlogicisp : new isp1020 revision ID (2)
+scsi0 : QLogic ISP1020 SCSI on PCI bus 00 device 48 irq 28 I/O base 0x9800
+scsi : 1 host.
+  Vendor: DEC       Model: RZ28D    (C) DEC  Rev: 0010
+  Type:   Direct-Access                      ANSI SCSI revision: 02
+Detected scsi disk sda at scsi0, channel 0, id 0, lun 0
+  Vendor: OLIVETTI  Model: CP30540 525MB3.5  Rev: ADB6
+  Type:   Direct-Access                      ANSI SCSI revision: 02
+Detected scsi disk sdb at scsi0, channel 0, id 1, lun 0
+scsi : detected 2 SCSI disks total.
+SCSI device sda: hdwr sector= 512 bytes. Sectors= 4110480 [2007 MB] [2.0 GB]
+SCSI device sdb: hdwr sector= 512 bytes. Sectors= 1025472 [500 MB] [0.5 GB]
+eth0: DE434/5 at 0x9000 (PCI bus 0, device 6), h/w address 00:00:f8:23:1d:50,
+      and requires IRQ29 (provided by PCI BIOS).
+de4x5.c:V0.544 1999/5/8 davies@maniac.ultranet.com
+Partition check:
+ sda: sda1 sda2 sda3 sda4
+ sdb: sdb1 sdb2
+VFS: Mounted root (ext2 filesystem) readonly.
+Freeing unused kernel memory: 192k freed
+Adding Swap: 243704k swap-space (priority -1)
+eth0: media is BNC/AUI.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+VM: killing process apache
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+eth0: Insufficient memory; nuking packet.
+VM: killing process syslogd
+VM: killing process python2.1
+VM: killing process python2.1
+VM: killing process zope-z2
+VM: killing process su
+</pre>
+<hr>
+<h2><a name="Operating System Information">Operating System Information</a></h2>
+<h3><a name="uname -a"></a></h3>
+# uname -a
+<pre>
+Linux alpha3 2.2.20 #2 Wed Mar 20 19:57:28 EST 2002 alpha unknown unknown GNU/Linux
+</pre>
+<h3><a name="uptime"></a></h3>
+# uptime
+<pre>
+ 14:43:14 up 33 days,  2:15,  2 users,  load average: 0.00, 0.04, 0.12
+</pre>
+<h3><a name="dpkg -l"></a></h3>
+# dpkg -l
+<pre>
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
+|/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
+||/ Name           Version        Description
++++-==============-==============-============================================
+ii  aboot          0.9-1          Linux bootloader for the SRM console
+ii  adduser        3.47           Add and remove users and groups
+ii  analog         5.23-0woody1   analyzes logfiles from web servers
+ii  apache         1.3.27-0.1     Versatile, high-performance HTTP server
+ii  apache-common  1.3.27-0.1     Support files for all Apache webservers
+ii  apt            0.5.4          Advanced front-end for dpkg
+ii  apt-utils      0.5.4          APT utility programs
+ii  aptitude       0.2.11.1-2     curses-based apt frontend
+ii  at             3.1.8-11       Delayed job execution and batch processing
+ii  autoconf       2.53-2         automatic configure script builder
+ii  autoconf2.13   2.13-43        automatic configure script builder (obsolete
+ii  automake       1.4-p4-1.1     A tool for generating GNU Standards-complian
+ii  autoproject    0.15.1-2       create a skeleton source package for a new p
+ii  autotools-dev  20020320.1     Update infrastructure for config.{guess,sub}
+ii  base-config    1.33.18        Debian base configuration package
+ii  base-files     3.0.2          Debian base system miscellaneous files
+ii  base-passwd    3.4.1          Debian Base System Password/Group Files
+ii  bash           2.05a-11       The GNU Bourne Again SHell
+ii  binutils       2.12.90.0.1-4  The GNU assembler, linker and binary utiliti
+ii  bison          1.35-3         A parser generator that is compatible with Y
+ii  bsdmainutils   5.20020211-4.9 More utilities from FreeBSD.
+ii  bsdutils       2.11n-4        Basic utilities from 4.4BSD-Lite.
+ii  c2man          2.41-14        Graham Stoney's mechanized man page generato
+ii  cflow          2.0-15         C function call hierarchy analyzer
+ii  chrony         1.14-7         It sets your computer's clock from time serv
+ii  console-common 0.7.14         Basic infrastructure for text console config
+ii  console-data   1999.08.29-24  Keymaps, fonts, charset maps, fallback table
+ii  console-tools  0.2.3-23.3     Linux console and font utilities.
+ii  console-tools- 0.2.3-23.3     Shared libraries for Linux console and font 
+ii  coreutils      4.5.8-2        The GNU core utilities
+ii  courier-authda 0.37.3-2.3     Courier Mail Server authentication daemon
+ii  courier-base   0.37.3-2.3     Courier Mail Server Base System
+ii  courier-imap   1.4.3-2.3      IMAP daemon with PAM and Maildir support
+rc  courier-pop    0.37.3-2.3     POP3 daemon with PAM and Maildir support
+ii  cpio           2.4.2-39       GNU cpio -- a program to manage archives of 
+ii  cpp            2.95.4-14      The GNU C preprocessor.
+ii  cpp-2.95       2.95.4-11woody The GNU C preprocessor.
+ii  cron           3.0pl1-72      management of regular background processing
+ii  cutils         1.6-2          C source code utilities
+ii  cvs            1.11.1p1debian Concurrent Versions System
+ii  cxref          1.5c-9         Generates latex and HTML documentation for C
+ii  debconf        1.2.31         Debian configuration management system
+ii  debianutils    1.16           Miscellaneous utilities specific to Debian.
+ii  dhcp-client    2.0pl5-11      DHCP Client
+ii  diff           2.7-29         File comparison utilities
+ii  dpkg           1.9.21         Package maintenance system for Debian
+rc  drupal         4.0-4          Fully-featured content management/discussion
+ii  e2fsprogs      1.27-2         The EXT2 file system utilities and libraries
+ii  ed             0.2-19         The classic unix line editor
+ii  epic4          1.1.7.20020907 epic irc client, version 4
+ii  epic4-help     1.1.7.20020907 help files for epic4.
+ii  epic4-script-s 1.35-3         the ONLY |<-lame irc script!
+rc  exim           3.35-1         An MTA (Mail Transport Agent)
+ii  fdutils        5.3-7          Linux floppy utilities
+ii  file           3.37-3.1.woody Determines file type using "magic" numbers
+ii  fileutils      4.1-10         GNU file management utilities
+ii  findutils      4.1.7-2        utilities for finding files--find, xargs, an
+ii  flex           2.5.4a-24      A fast lexical analyzer generator.
+ii  g++            2.95.4-14      The GNU C++ compiler.
+ii  g++-2.95       2.95.4-11woody The GNU C++ compiler.
+ii  gcc            2.95.4-14      The GNU C compiler.
+ii  gcc-2.95       2.95.4-11woody The GNU C compiler.
+ii  gdb            5.2.cvs2002040 The GNU Debugger
+ii  gettext        0.10.40-5      GNU Internationalization utilities
+ii  gettext-base   0.10.40-5      GNU Internationalization utilities for the b
+ii  gettext-el     0.10.40-5      Emacs po-mode for editing .po files.
+ii  glibc-doc      2.2.5-11.2     GNU C Library: Documentation
+ii  gpm            1.19.6-12.1    General Purpose Mouse Interface
+ii  grep           2.4.2-3        GNU grep, egrep and fgrep.
+ii  groff-base     1.17.2-15.wood GNU troff text-formatting system (base syste
+ii  gzip           1.3.2-3        The GNU compression utility.
+ii  hostname       2.09           A utility to set/show the host name or domai
+ii  iconx          9.4.0-2        Executor for Icon, a high-level programming 
+ii  ifupdown       0.6.4-4        High level tools to configure network interf
+ii  indent         2.2.7-2        C language source code formatting program
+ii  info           4.1-2          Standalone GNU Info documentation browser
+ii  ipchains       1.3.10-15      Network firewalling for Linux 2.2.x
+ii  klogd          1.4.1-10       Kernel Logging Daemon
+ii  less           374-4          A file pager program, similar to more(1)
+ii  lftp           2.4.9-1        Sophisticated command-line FTP/HTTP client p
+ii  libapache-mod- 2.2.10-3       FastCGI module for Apache.
+ii  libbz2-1.0     1.0.2-1        A high-quality block-sorting file compressor
+ii  libc6.1        2.3.1-14       GNU C Library: Shared libraries and Timezone
+ii  libc6.1-dev    2.3.1-14       GNU C Library: Development Libraries and Hea
+ii  libcap1        1.10-12        support for getting/setting POSIX.1e capabil
+ii  libdb1-compat  2.1.3-7        The Berkeley database routines [glibc 2.0/2.
+ii  libdb2         2.7.7.0-7      The Berkeley database routines (run-time fil
+ii  libdb3         3.2.9-16       Berkeley v3 Database Libraries [runtime]
+ii  libdbi-perl    1.21-2         The Perl5 Database Interface by Tim Bunce
+ii  libexpat1      1.95.6-3       XML parsing C library - runtime library
+ii  libfreetype6   2.0.9-1        FreeType 2 font engine, shared library files
+ii  libgd1         1.8.4-17.woody GD Graphics Library
+ii  libgdbmg1      1.7.3-27       GNU dbm database routines (runtime version).
+ii  libglib1.2     1.2.10-4       The GLib library of C routines
+ii  libglib1.2-dev 1.2.10-4       Development files for GLib library
+ii  libgpmg1       1.19.6-12      General Purpose Mouse Library [libc6]
+ii  libgtk1.2      1.2.10-11      The GIMP Toolkit set of widgets for X
+ii  libgtk1.2-comm 1.2.10-11      Common files for the GTK+ library
+ii  libgtk1.2-dev  1.2.10-11      Development files for the GIMP Toolkit
+ii  libident       0.22-2         simple RFC1413 client library - runtime
+ii  libjpeg62      6b-5           The Independent JPEG Group's JPEG runtime li
+ii  libldap2       2.0.23-6.3     OpenLDAP libraries.
+ii  liblockfile1   1.03           NFS-safe locking library, includes dotlockfi
+ii  libmm11        1.1.3-6.1      Shared memory library
+ii  libmm12        1.2.2-1        Shared memory library - runtime
+ii  libncurses5    5.3.20021109-2 Shared libraries for terminal handling
+ii  libncurses5-de 5.3.20021109-2 Developer's libraries and docs for ncurses
+ii  libnewt0       0.50.17-9.6    Not Erik's Windowing Toolkit - text mode win
+ii  libnkf-ruby    1.6.7-3        Network Kanji code conversion Filter for Rub
+ii  libpam-modules 0.72-35        Pluggable Authentication Modules for PAM
+ii  libpam-runtime 0.72-35        Runtime support for the PAM library
+ii  libpam0g       0.76-9         Pluggable Authentication Modules library
+ii  libpcap0       0.6.2-2        System interface for user-level packet captu
+ii  libpcre3       3.4-1.1        Philip Hazel's Perl Compatible Regular Expre
+ii  libperl5.6     5.6.1-8.2      Shared Perl library.
+ii  libpgsql2      7.2.1-2woody2  Shared library libpq.so.2 for PostgreSQL
+ii  libpng2        1.0.12-3.woody PNG library - runtime
+ii  libpopt0       1.6.2-7        lib for parsing cmdline parameters
+ii  libreadline4   4.3-4          GNU readline and history libraries, run-time
+ii  libruby        1.6.7-3        Libraries necessary to run Ruby
+ii  libsasl7       1.5.27-3       Authentication abstraction library.
+ii  libsigc++0     1.0.4-3        Type-safe Signal Framework for C++ - runtime
+ii  libssl0.9.6    0.9.6c-2.woody SSL shared libraries
+ii  libstdc++2.10- 2.95.4-11woody The GNU stdc++ library (development files)
+ii  libstdc++2.10- 2.95.4-11woody The GNU stdc++ library
+ii  libtool        1.4.2-4        Generic library support script
+ii  libwrap0       7.6-9          Wietse Venema's TCP wrappers library
+ii  libxml2        2.5.3-1        GNOME XML library
+ii  liwc           1.7-1.1        Tools for manipulating C source code
+ii  login          20000902-12    System login tools
+ii  logrotate      3.5.9-8        Log rotation utility
+ii  lynx           2.8.4.1b-3.2   Text-mode WWW Browser
+ii  m4             1.4-14         a macro processing language
+ii  mailman        2.0.11-1woody5 Powerful, web-based mailing list manager
+ii  mailx          8.1.2-0.200204 A simple mail user agent.
+ii  make           3.79.1-14      The GNU version of the "make" utility.
+ii  makedev        2.3.1-58       Creates device files in /dev.
+ii  makepasswd     1.10-1         Generate and encrypt passwords
+ii  man-db         2.3.20-18      The on-line manual pager
+ii  manpages       1.39-1.1       Man pages about using a Linux system.
+ii  manpages-dev   1.39-1.1       Linux-development man pages.
+ii  mawk           1.3.3-8        a pattern scanning and text processing langu
+ii  mc             4.5.55-1.2     Midnight Commander - A powerful file manager
+ii  mc-common      4.5.55-1.2     Common files for mc and gmc
+ii  mime-codecs    7.03-1         Fast Quoted-Printable and BASE64 MIME transp
+ii  mime-support   3.18-1         MIME files 'mime.types' & 'mailcap', and sup
+ii  mimedecode     1.9-2          Decodes transfer encoded text type mime mess
+ii  modconf        0.2.43         Device Driver Configuration
+ii  modutils       2.4.15-1       Linux module utilities.
+ii  mount          2.11n-4        Tools for mounting and manipulating filesyst
+ii  mutt           1.3.28-2       Text-based mailreader supporting MIME, GPG, 
+ii  nano           1.0.6-2        free Pico clone with some new features
+ii  ncurses-base   5.2.20020112a- Descriptions of common terminal types
+ii  ncurses-bin    5.2.20020112a- Terminal-related programs and man pages
+ii  net-tools      1.60-4         The NET-3 networking toolkit
+ii  netbase        4.07           Basic TCP/IP networking system
+ii  netkit-inetd   0.10-9         The Internet Superserver
+ii  netkit-ping    0.10-9         The ping utility from netkit
+ii  netselect      0.3-4          Choose the fastest server automatically.
+ii  nowebm         2.9a-7.1       A WEB-like literate-programming tool.
+rc  ntp            4.1.0-8        Daemon and utilities for full NTP v4 timekee
+rc  ntp-simple     4.1.0-8        NTP v4 daemon for simple systems.
+rc  ntpdate        4.1.0-8        The ntpdate client for setting system time f
+ii  nvi            1.79-20        4.4BSD re-implementation of vi.
+ii  odbc-postgresq 7.2.1-2woody2  ODBC support for PostgreSQL
+ii  odbcinst1      2.1.1-8        Support library and helper program for acces
+ii  passwd         20000902-12    Change and administer password and group dat
+ii  patch          2.5.4-11       Apply a diff file to an original
+ii  pciutils       2.1.9-4        Linux PCI Utilities (for 2.[1234].x kernels)
+ii  perl           5.6.1-8.2      Larry Wall's Practical Extraction and Report
+ii  perl-base      5.6.1-8.2      The Pathologically Eclectic Rubbish Lister.
+ii  perl-modules   5.6.1-8.2      Core Perl modules.
+ii  php4           4.2.3-11       A server-side, HTML-embedded scripting langu
+ii  php4-cgi       4.2.3-11       A server-side, HTML-embedded scripting langu
+ii  php4-domxml    4.2.3-11       XMLv2 module for php4
+ii  php4-pear      4.2.3-11       PEAR - PHP Extension and Application Reposit
+ii  pkg-config     0.11.0-0.1     program and autoconf macro to gather compile
+ii  plone          1.0.1-2        A zope/cmf-based content management system
+ii  postfix        1.1.11-0.woody A high-performance mail transport agent
+ii  postfix-ldap   1.1.11-0.woody LDAP map support for Postfix
+ii  postfix-pcre   1.1.11-0.woody PCRE map support for Postfix
+ii  ppp            2.4.1.uus-4    Point-to-Point Protocol (PPP) daemon.
+ii  pppconfig      2.0.14         A text menu based utility for configuring pp
+ii  pppoe          3.3-1.1        PPP over Ethernet driver
+ii  pppoeconf      0.9.10.6       configures PPPoE/ADSL
+ii  procmail       3.22-4         Versatile e-mail processor.
+ii  procps         2.0.7-8        The /proc file system utilities.
+ii  python         2.1.3-3.2      An interactive object-oriented scripting lan
+ii  python2.1      2.1.3-4        An interactive object-oriented scripting lan
+ii  python2.1-egen 2.0.3-3        Date and time handling routines for Python 2
+ii  python2.1-egen 2.0.3-3        A collection of new builtins for Python 2.1
+ii  python2.1-popy 2.0.8-3        module providing access to PostgreSQL from P
+ii  python2.1-xml  0.7.1-2        XML tools for Python (2.1.x)
+ii  python2.1-xmlb 2.1.3-4        XML support included in Python (v2.1)
+rc  qpopper        4.0.4-2.woody. Enhanced Post Office Protocol server (POP3).
+ii  rdate          1.4-1          Set the system's date from a remote host.
+ii  ruby           1.6.7-3        An interpreter of object-oriented scripting 
+ii  sed            3.02-8         The GNU sed stream editor.
+ii  setserial      2.17-24        Controls configuration of serial ports.
+ii  shellutils     2.0.11-11      The GNU shell programming utilities.
+ii  slang1         1.4.4-7.2      The S-Lang programming library - runtime ver
+ii  solid-pop3d    0.15-1.1       POP3 server supporting Maildir, PAM, vhostin
+ii  squishdot      1.4.0-1        Web-based News/Discussion System
+ii  ssh            3.4p1-1        Secure rlogin/rsh/rcp replacement (OpenSSH)
+ii  stl-manual     3.30-4         C++-STL documentation in HTML
+ii  strace         4.4-1.2        A system call tracer.
+ii  sysklogd       1.4.1-10       System Logging Daemon
+ii  sysvinit       2.84-2woody1   System-V like init.
+ii  tar            1.13.25-2      GNU tar
+ii  tasksel        1.18           Tool for selecting tasks for installation on
+ii  tcpd           7.6-9          Wietse Venema's TCP wrapper utilities
+ii  telnet         0.17-18        The telnet client.
+ii  textutils      2.0-12         The GNU text file processing utilities.
+ii  unzip          5.50-1         De-archiver for .zip files
+ii  util-linux     2.11n-4        Miscellaneous system utilities.
+ii  vim            6.1.018-1      Vi IMproved - enhanced vi editor
+ii  wget           1.8.2-5        retrieves files from the web
+ii  whiptail       0.50.17-9.6    Displays user-friendly dialog boxes from she
+ii  wwwconfig-comm 0.0.25         Debian web auto configuration
+ii  xfree86-common 4.1.0-16       X Window System (XFree86) infrastructure
+ii  xlibs          4.1.0-16       X Window System client libraries
+ii  xlibs-dev      4.1.0-16       X Window System client library development f
+ii  xmms           1.2.7-1        Versatile X audio player that looks like Win
+ii  xmms-dev       1.2.7-1        XMMS development static library and header f
+ii  zlib1g         1.1.4-1        compression library - runtime
+ii  zope           2.6.1-0.3      An Open Source Web Application Server
+ii  zope-book      20030116-1     Zope Open Content Book
+ii  zope-cmf       1.3-1          Zope Content Management Framework.
+ii  zope-cmfcalend 1.3-1          Zope Content Management Framework Calendar.
+ii  zope-cmfcore   1.3-1          Zope Content Management Framework Core servi
+ii  zope-cmfdefaul 1.3-1          Zope Content Management Framework Default (b
+ii  zope-cmfplone  1.0.1-2        A zope/cmf-based content management system
+ii  zope-cmftopic  1.3-1          Zope Content Management Framework Topic.
+ii  zope-cmfworkfl 0.4.2-1        Zope Content Management Framework workflow m
+ii  zope-formulato 1.3.1-1        A tool to create and validate web forms in Z
+ii  zope-tinytable 0b2-7          Present tabular data in Zope
+</pre>
+<h3><a name="cat /etc/modules"></a></h3>
+# cat /etc/modules
+<pre>
+# /etc/modules: kernel modules to load at boot time.
+#
+# This file should contain the names of kernel modules that are
+# to be loaded at boot time, one per line.  Comments begin with
+# a "#", and everything on the line after them are ignored.
+
+</pre>
+<h3><a name="who -r"></a></h3>
+# who -r
+<pre>
+         run-level 2  Mar  4 08:34                   last=S  
+</pre>
+<h3><a name="ls /etc/*elease; cat /etc/*elease"></a></h3>
+# ls /etc/*elease; cat /etc/*elease
+<pre>
+</pre>
+<h3><a name="ls /etc/*ersion; cat /etc/*ersion"></a></h3>
+# ls /etc/*ersion; cat /etc/*ersion
+<pre>
+/etc/debian_version
+3.0
+</pre>
+<h3><a name="cat /etc/sysctl.conf"></a></h3>
+# cat /etc/sysctl.conf
+<pre>
+#
+# /etc/sysctl.conf - Configuration file for setting system variables
+# See sysctl.conf (5) for information.
+#
+#kernel.domainname = example.com
+#net/ipv4/icmp_echo_ignore_broadcasts=1
+</pre>
+<h3><a name="ps -ef"></a></h3>
+# ps -ef
+<pre>
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 Mar04 ?        00:00:10 init [2]        
+root         2     1  0 Mar04 ?        00:00:41 [kflushd]
+root         3     1  0 Mar04 ?        00:00:20 [kupdate]
+root         4     1  0 Mar04 ?        00:01:09 [kswapd]
+root         5     1  0 Mar04 ?        00:00:00 [keventd]
+daemon     207     1  0 Mar04 ?        00:00:00 /usr/sbin/atd
+root      7811     1  0 Mar06 ?        00:00:00 [inetd]
+root      7820     1  0 Mar06 ?        00:00:58 /usr/sbin/cron
+root      7835     1  0 Mar06 ?        00:00:00 /usr/sbin/sshd
+root      9070     1  0 Mar06 ?        00:00:00 [gpm]
+root      9658     1  0 Mar06 tty2     00:00:00 [getty]
+root      9659     1  0 Mar06 tty1     00:00:00 [getty]
+root      9660     1  0 Mar06 tty3     00:00:00 [getty]
+root      9661     1  0 Mar06 tty4     00:00:00 [getty]
+root      9662     1  0 Mar06 tty5     00:00:00 [getty]
+root     21201     1  0 Mar19 tty6     00:00:00 [getty]
+root     12482     1  0 Mar20 ?        00:00:24 /usr/lib/postfix/master
+postfix  12486 12482  0 Mar20 ?        00:00:10 qmgr -l -t fifo -u -c
+root     12752     1  0 Mar20 ?        00:00:00 [authdaemond.pla]
+root     12753 12752  0 Mar20 ?        00:00:00 [authdaemond.pla]
+root     12754 12752  0 Mar20 ?        00:00:00 [authdaemond.pla]
+root     12755 12752  0 Mar20 ?        00:00:00 [authdaemond.pla]
+root     12756 12752  0 Mar20 ?        00:00:00 [authdaemond.pla]
+root     12757 12752  0 Mar20 ?        00:00:00 [authdaemond.pla]
+root     28452     1  0 Mar24 ?        00:00:00 [couriertcpd]
+root     28455     1  0 Mar24 ?        00:00:00 [courierlogger]
+www-data 13686     1  0 Apr04 ?        00:05:04 [python2.1]
+www-data 13687     1  0 Apr04 ?        00:00:05 [python2.1]
+www-data 13688     1  0 Apr04 ?        00:00:07 [python2.1]
+www-data 13689     1  0 Apr04 ?        00:02:01 [python2.1]
+root     13752     1  0 Apr04 ?        00:00:19 /usr/sbin/apache
+www-data 13935 13752  0 06:26 ?        00:00:00 /usr/sbin/apache
+www-data 13936 13752  0 06:26 ?        00:00:00 /usr/sbin/apache
+www-data 13937 13752  0 06:26 ?        00:00:00 /usr/sbin/apache
+www-data 13938 13752  0 06:26 ?        00:00:00 /usr/sbin/apache
+www-data 13939 13752  0 06:26 ?        00:00:00 /usr/sbin/apache
+root     14016     1  0 06:27 ?        00:00:02 /sbin/syslogd
+www-data 14125 13752  0 06:35 ?        00:00:00 /usr/sbin/apache
+www-data 14712 13752  0 07:05 ?        00:00:00 /usr/sbin/apache
+www-data 14726 13752  0 07:06 ?        00:00:00 /usr/sbin/apache
+www-data 14755 13752  0 07:08 ?        00:00:00 /usr/sbin/apache
+root     21413  7835  0 14:15 ?        00:00:00 /usr/sbin/sshd
+kpanic   21415 21413  0 14:15 ?        00:00:00 /usr/sbin/sshd
+kpanic   21416 21415  0 14:15 pts/1    00:00:00 -bash
+root     21419 21416  0 14:15 pts/1    00:00:00 bash
+postfix  27692 12482  0 14:37 ?        00:00:00 pickup -l -t fifo -u -c
+root     27744  7835  0 14:40 ?        00:00:00 /usr/sbin/sshd
+tarzeau  27746 27744  0 14:40 ?        00:00:00 /usr/sbin/sshd
+tarzeau  27747 27746  0 14:40 pts/0    00:00:00 -bash
+root     27783 21419  0 14:41 pts/1    00:00:00 less .config
+tarzeau  27817 27747  2 14:43 pts/0    00:00:00 sh ./sysconf
+tarzeau  27872 27817  0 14:43 pts/0    00:00:00 ps -ef
+</pre>
+<h3><a name="cat /etc/issue.net"></a></h3>
+# cat /etc/issue.net
+<pre>
+Debian GNU/%s 3.0 %h
+</pre>
+<hr>
+<h2><a name="Filesystem Information">Filesystem Information</a></h2>
+<h3><a name="df -k"></a></h3>
+# df -k
+<pre>
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/sda1                93329     34127     54383  39% /
+/dev/sda2               474475     15140    434836   4% /home
+/dev/sda3               672000    575880     61984  91% /usr
+/dev/sda4               773048    132492    601288  19% /var
+/dev/sdb2               259766       839    245514   1% /tmp
+</pre>
+<h3><a name="cat /etc/fstab"></a></h3>
+# cat /etc/fstab
+<pre>
+# /etc/fstab: static file system information.
+#
+# <file system>	<mount point>	<type>	<options>		<dump>	<pass>
+/dev/sda1	/		ext2	errors=remount-ro	0	1
+/dev/sdb1	none		swap	sw			0	0
+proc		/proc		proc	defaults		0	0
+/dev/fd0	/floppy		auto	user,noauto		0	0
+/dev/cdrom	/cdrom		iso9660	ro,user,noauto		0	0
+/dev/sda2	/home	ext2	defaults			0	2
+/dev/sda3	/usr	ext2	defaults			0	2
+/dev/sda4	/var	ext2	defaults			0	2
+/dev/sdb2	/tmp	ext2	defaults			0	2
+</pre>
+<h3><a name="mount"></a></h3>
+# mount
+<pre>
+/dev/sda1 on / type ext2 (rw,errors=remount-ro)
+proc on /proc type proc (rw)
+devpts on /dev/pts type devpts (rw,gid=5,mode=620)
+/dev/sda2 on /home type ext2 (rw)
+/dev/sda3 on /usr type ext2 (rw)
+/dev/sda4 on /var type ext2 (rw)
+/dev/sdb2 on /tmp type ext2 (rw)
+</pre>
+<hr>
+<h2><a name="Network Information">Network Information</a></h2>
+<h3><a name="cat /etc/hosts"></a></h3>
+# cat /etc/hosts
+<pre>
+127.0.0.1	localhost
+191.103.12.148	alpha3.unipv.it	alpha3
+
+# The following lines are desirable for IPv6 capable hosts
+# (added automatically by netbase upgrade)
+
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+</pre>
+<h3><a name="cat /etc/resolv.conf"></a></h3>
+# cat /etc/resolv.conf
+<pre>
+search unipv.it
+nameserver 191.103.15.27
+nameserver 131.175.1.4
+</pre>
+<h3><a name="netstat -nr"></a></h3>
+# netstat -nr
+<pre>
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+191.103.12.0    0.0.0.0         255.255.255.0   U         0 0          0 eth0
+0.0.0.0         191.103.12.254  0.0.0.0         UG        0 0          0 eth0
+</pre>
+<h3><a name="netstat -na"></a></h3>
+# netstat -na
+<pre>
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 191.103.12.148:22       217.162.4.93:63278      ESTABLISHED 
+tcp      625      0 127.0.0.1:9673          127.0.0.1:4876          CLOSE_WAIT  
+tcp        1      1 191.103.12.148:80       80.104.45.241:32885     LAST_ACK    
+tcp      625      0 127.0.0.1:9673          127.0.0.1:4875          CLOSE_WAIT  
+tcp        1      1 191.103.12.148:80       80.104.45.241:32884     LAST_ACK    
+tcp        0      0 191.103.12.148:22       151.38.68.163:55218     ESTABLISHED 
+tcp      318      0 127.0.0.1:9673          127.0.0.1:4844          CLOSE_WAIT  
+tcp      318      0 127.0.0.1:9673          127.0.0.1:4843          CLOSE_WAIT  
+tcp      321      0 127.0.0.1:9673          127.0.0.1:4841          CLOSE_WAIT  
+tcp      321      0 127.0.0.1:9673          127.0.0.1:4840          CLOSE_WAIT  
+tcp      321      0 127.0.0.1:9673          127.0.0.1:4839          CLOSE_WAIT  
+tcp      363      0 127.0.0.1:9673          127.0.0.1:4838          CLOSE_WAIT  
+tcp      335      0 127.0.0.1:9673          127.0.0.1:4836          CLOSE_WAIT  
+tcp      335      0 127.0.0.1:9673          127.0.0.1:4835          CLOSE_WAIT  
+tcp      318      0 127.0.0.1:9673          127.0.0.1:4834          CLOSE_WAIT  
+tcp      304      0 127.0.0.1:9673          127.0.0.1:4832          CLOSE_WAIT  
+tcp      304      0 127.0.0.1:9673          127.0.0.1:4831          CLOSE_WAIT  
+tcp      294      0 127.0.0.1:9673          127.0.0.1:4830          CLOSE_WAIT  
+tcp      296      0 127.0.0.1:9673          127.0.0.1:4828          CLOSE_WAIT  
+tcp      306      0 127.0.0.1:9673          127.0.0.1:4749          CLOSE_WAIT  
+tcp      306      0 127.0.0.1:9673          127.0.0.1:4748          CLOSE_WAIT  
+tcp      296      0 127.0.0.1:9673          127.0.0.1:4747          CLOSE_WAIT  
+tcp      298      0 127.0.0.1:9673          127.0.0.1:4745          CLOSE_WAIT  
+tcp        0      0 191.103.12.148:9673     80.104.73.228:3073      ESTABLISHED 
+tcp        0      0 191.103.12.148:9673     80.104.73.228:3063      ESTABLISHED 
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:8021            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9673            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:110             0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:143             0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:25              0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:2401            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      
+raw        0      0 0.0.0.0:1               0.0.0.0:*               7           
+raw        0      0 0.0.0.0:6               0.0.0.0:*               7           
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node Path
+unix  0      [ ACC ]     STREAM     LISTENING     424945 public/cleanup
+unix  0      [ ACC ]     STREAM     LISTENING     424952 private/rewrite
+unix  0      [ ACC ]     STREAM     LISTENING     424956 private/bounce
+unix  0      [ ACC ]     STREAM     LISTENING     424960 private/defer
+unix  0      [ ACC ]     STREAM     LISTENING     424964 public/flush
+unix  0      [ ACC ]     STREAM     LISTENING     424968 private/smtp
+unix  0      [ ACC ]     STREAM     LISTENING     424972 public/showq
+unix  0      [ ACC ]     STREAM     LISTENING     424976 private/error
+unix  0      [ ACC ]     STREAM     LISTENING     424980 private/local
+unix  0      [ ACC ]     STREAM     LISTENING     424984 private/virtual
+unix  0      [ ACC ]     STREAM     LISTENING     424988 private/lmtp
+unix  0      [ ACC ]     STREAM     LISTENING     424992 private/cyrus
+unix  0      [ ACC ]     STREAM     LISTENING     424996 private/uucp
+unix  0      [ ACC ]     STREAM     LISTENING     425000 private/ifmail
+unix  0      [ ACC ]     STREAM     LISTENING     425004 private/bsmtp
+unix  0      [ ACC ]     STREAM     LISTENING     425008 private/scalemail-backend
+unix  1      [ ]         DGRAM                    963173 /dev/log
+unix  0      [ ACC ]     STREAM     LISTENING     908583 /var/lib/zope/var/Z2-pcgi.soc
+unix  0      [ ACC ]     STREAM     LISTENING     425590 /var/run/courier/authdaemon/socket.tmp
+unix  0      [ ACC ]     STREAM     LISTENING     74078  /dev/gpmctl
+unix  1      [ W ]       STREAM     CONNECTED     981205 
+unix  1      [ ]         STREAM     CONNECTED     981204 
+unix  0      [ ]         DGRAM                    981094 
+unix  1      [ W ]       STREAM     CONNECTED     974517 
+unix  1      [ ]         STREAM     CONNECTED     974516 
+unix  0      [ ]         DGRAM                    554733 
+unix  0      [ ]         DGRAM                    425589 
+unix  1      [ ]         STREAM     CONNECTED     425011 
+unix  1      [ ]         STREAM     CONNECTED     425010 
+unix  1      [ ]         STREAM     CONNECTED     425007 
+unix  1      [ ]         STREAM     CONNECTED     425006 
+unix  1      [ ]         STREAM     CONNECTED     425003 
+unix  1      [ ]         STREAM     CONNECTED     425002 
+unix  1      [ ]         STREAM     CONNECTED     424999 
+unix  1      [ ]         STREAM     CONNECTED     424998 
+unix  1      [ ]         STREAM     CONNECTED     424995 
+unix  1      [ ]         STREAM     CONNECTED     424994 
+unix  1      [ ]         STREAM     CONNECTED     424991 
+unix  1      [ ]         STREAM     CONNECTED     424990 
+unix  1      [ ]         STREAM     CONNECTED     424987 
+unix  1      [ ]         STREAM     CONNECTED     424986 
+unix  1      [ ]         STREAM     CONNECTED     424983 
+unix  1      [ ]         STREAM     CONNECTED     424982 
+unix  1      [ ]         STREAM     CONNECTED     424979 
+unix  1      [ ]         STREAM     CONNECTED     424978 
+unix  1      [ ]         STREAM     CONNECTED     424975 
+unix  1      [ ]         STREAM     CONNECTED     424974 
+unix  1      [ ]         STREAM     CONNECTED     424971 
+unix  1      [ ]         STREAM     CONNECTED     424970 
+unix  1      [ ]         STREAM     CONNECTED     424967 
+unix  1      [ ]         STREAM     CONNECTED     424966 
+unix  1      [ ]         STREAM     CONNECTED     424963 
+unix  1      [ ]         STREAM     CONNECTED     424962 
+unix  1      [ ]         STREAM     CONNECTED     424959 
+unix  1      [ ]         STREAM     CONNECTED     424958 
+unix  1      [ ]         STREAM     CONNECTED     424955 
+unix  1      [ ]         STREAM     CONNECTED     424954 
+unix  1      [ ]         STREAM     CONNECTED     424951 
+unix  1      [ ]         STREAM     CONNECTED     424950 
+unix  1      [ ]         STREAM     CONNECTED     424948 
+unix  1      [ ]         STREAM     CONNECTED     424947 
+unix  1      [ ]         STREAM     CONNECTED     424944 
+unix  1      [ ]         STREAM     CONNECTED     424943 
+unix  1      [ ]         STREAM     CONNECTED     424941 
+unix  1      [ ]         STREAM     CONNECTED     424940 
+unix  0      [ ]         DGRAM                    424935 
+unix  0      [ ]         DGRAM                    138    
+</pre>
+<h3><a name="netstat -ni"></a></h3>
+# netstat -ni
+<pre>
+Kernel Interface table
+Iface   MTU Met   RX-OK RX-ERR RX-DRP RX-OVR   TX-OK TX-ERR TX-DRP TX-OVR Flg
+eth0   1500   0 9718434      0     46      0  337363      0      0      0 BMRU
+lo     8020   0   71923      0      0      0   71923      0      0      0 LRU
+</pre>
+<h3><a name="cat /etc/hostname"></a></h3>
+# cat /etc/hostname
+<pre>
+alpha3
+</pre>
+<h3><a name="cat /etc/network/interfaces"></a></h3>
+# cat /etc/network/interfaces
+<pre>
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+# The loopback interface
+auto lo
+iface lo inet loopback
+
+# The first network card - this entry was created during the Debian installation
+# (network, broadcast and gateway are optional)
+auto eth0
+iface eth0 inet static
+	address 191.103.12.148
+	netmask 255.255.255.0
+	network 191.103.12.0
+	broadcast 191.103.12.255
+	gateway 191.103.12.254
+</pre>
+<h3><a name="cat /etc/*inetd.conf"></a></h3>
+# cat /etc/*inetd.conf
+<pre>
+# /etc/inetd.conf:  see inetd(8) for further informations.
+#
+# Internet server configuration database
+#
+#
+# Lines starting with "#:LABEL:" or "#<off>#" should not
+# be changed unless you know what you are doing!
+#
+# If you want to disable an entry so it isn't touched during
+# package updates just comment it out with a single '#' character.
+#
+# Packages should modify this file by using update-inetd(8)
+#
+# <service_name> <sock_type> <proto> <flags> <user> <server_path> <args>
+#
+#:INTERNAL: Internal services
+#echo		stream	tcp	nowait	root	internal
+#echo		dgram	udp	wait	root	internal
+#chargen	stream	tcp	nowait	root	internal
+#chargen	dgram	udp	wait	root	internal
+#discard		stream	tcp	nowait	root	internal
+#discard		dgram	udp	wait	root	internal
+#daytime		stream	tcp	nowait	root	internal
+#daytime	dgram	udp	wait	root	internal
+#time		stream	tcp	nowait	root	internal
+#time		dgram	udp	wait	root	internal
+
+#:STANDARD: These are standard services.
+
+#:BSD: Shell, login, exec and talk are BSD protocols.
+
+#:MAIL: Mail, news and uucp services.
+#disabled#smtp		stream	tcp	nowait	mail	/usr/sbin/exim exim -bs
+pop3		stream	tcp	nowait	root.mail	/usr/sbin/tcpd	/usr/sbin/solid-pop3d
+
+#:INFO: Info services
+
+#:BOOT: Tftp service is provided primarily for booting.  Most sites
+# run this only on machines acting as "boot servers."
+
+#:RPC: RPC based services
+
+#:HAM-RADIO: amateur-radio services
+
+#:OTHER: Other services
+cvspserver	stream	tcp	nowait.400	root	/usr/sbin/tcpd	/usr/sbin/cvs-pserver
+
+</pre>
+<h3><a name="cat /etc/nsswitch.conf"></a></h3>
+# cat /etc/nsswitch.conf
+<pre>
+# /etc/nsswitch.conf
+#
+# Example configuration of GNU Name Service Switch functionality.
+# If you have the `glibc-doc' and `info' packages installed, try:
+# `info libc "Name Service Switch"' for information about this file.
+
+passwd:         compat
+group:          compat
+shadow:         compat
+
+hosts:          files dns
+networks:       files
+
+protocols:      db files
+services:       db files
+ethers:         db files
+rpc:            db files
+
+netgroup:       nis
+</pre>
+<h3><a name="cat /etc/hosts.allow"></a></h3>
+# cat /etc/hosts.allow
+<pre>
+# /etc/hosts.allow: list of hosts that are allowed to access the system.
+#                   See the manual pages hosts_access(5), hosts_options(5)
+#                   and /usr/doc/netbase/portmapper.txt.gz
+#
+# Example:    ALL: LOCAL @some_netgroup
+#             ALL: .foobar.edu EXCEPT terminalserver.foobar.edu
+#
+# If you're going to protect the portmapper use the name "portmap" for the
+# daemon name. Remember that you can only use the keyword "ALL" and IP
+# addresses (NOT host or domain names) for the portmapper. See portmap(8)
+# and /usr/doc/portmap/portmapper.txt.gz for further information.
+#
+</pre>
+<h3><a name="cat /etc/hosts.deny"></a></h3>
+# cat /etc/hosts.deny
+<pre>
+# /etc/hosts.deny: list of hosts that are _not_ allowed to access the system.
+#                  See the manual pages hosts_access(5), hosts_options(5)
+#                  and /usr/doc/netbase/portmapper.txt.gz
+#
+# Example:    ALL: some.host.name, .some.domain
+#             ALL EXCEPT in.fingerd: other.host.name, .other.domain
+#
+# If you're going to protect the portmapper use the name "portmap" for the
+# daemon name. Remember that you can only use the keyword "ALL" and IP
+# addresses (NOT host or domain names) for the portmapper. See portmap(8)
+# and /usr/doc/portmap/portmapper.txt.gz for further information.
+#
+# The PARANOID wildcard matches any host whose name does not match its
+# address. You may wish to enable this to ensure any programs that don't
+# validate looked up hostnames still leave understandable logs. In past
+# versions of Debian this has been the default.
+# ALL: PARANOID
+</pre>
+<h3><a name="ls -la /etc/init.d/"></a></h3>
+# ls -la /etc/init.d/
+<pre>
+total 93
+drwxr-xr-x    2 root     root         2048 Mar 20 18:47 .
+drwxr-xr-x   56 root     root         3072 Apr  6 14:40 ..
+-rw-r--r--    1 root     root          854 May 29  2002 README
+-rwxr-xr-x    1 root     root         1430 Jan  4 03:43 apache
+-rwxr-xr-x    1 root     root         1074 Jan 19  2002 atd
+-rwxr-xr-x    1 root     root         1967 May 29  2002 bootmisc.sh
+-rwxr-xr-x    1 root     root          894 May 29  2002 checkfs.sh
+-rwxr-xr-x    1 root     root         4048 May 29  2002 checkroot.sh
+-rwxr-xr-x    1 root     root         1266 Apr 19  2002 chrony
+-rwxr-xr-x    1 root     root         2757 Nov 12  2001 console-screen.sh
+-rwxr-xr-x    1 root     root          814 Nov 14 14:39 courier-authdaemon
+-rwxr-xr-x    1 root     root         1510 Nov 14 14:39 courier-imap
+-rwxr-xr-x    1 root     root         1440 Nov 14 14:39 courier-pop
+-rwxr-xr-x    1 root     root          868 Oct  1  2001 cron
+-rwxr-xr-x    1 root     root          782 Feb 26 08:34 devpts.sh
+-rwxr-xr-x    1 root     root          599 Jan  5  2002 dns-clean
+-rwxr-xr-x    1 root     root         1315 Mar  6  2002 exim
+-rwxr-xr-x    1 root     root         1473 Feb 11 20:37 gpm
+-rwxr-xr-x    1 root     root          418 May 29  2002 halt
+-rwxr-xr-x    1 root     root          165 May 29  2002 hostname.sh
+-rwxr-xr-x    1 root     root         3390 Feb  2  2002 hwclock.sh
+-rwxr-xr-x    1 root     root         3233 Feb  2  2002 hwclockfirst.sh
+-rwxr-xr-x    1 root     root          218 Jul 14  2001 ifupdown
+-rwxr-xr-x    1 root     root         1764 Nov 18  2001 inetd
+-rwxr-xr-x    1 root     root          723 Apr 22  2002 keymap.sh
+-rwxr-xr-x    1 root     root         1575 Mar  9 13:24 klogd
+-rwxr-xr-x    1 root     root          320 Mar 29  2001 makedev
+-rwxr-xr-x    1 root     root          735 Mar 25  2002 modutils
+-rwxr-xr-x    1 root     root          896 May 29  2002 mountall.sh
+-rwxr-xr-x    1 root     root         1579 May 29  2002 mountnfs.sh
+-rwxr-xr-x    1 root     root         4042 Nov 18  2001 networking
+-rwxr-xr-x    1 root     root          647 Mar 27  2002 ntp
+-rwxr-xr-x    1 root     root          406 Mar 27  2002 ntpdate
+-rwxr-xr-x    1 root     root         1882 Dec 24  2001 nviboot
+-rwxr-xr-x    1 root     root         2060 Jul 14  2002 postfix
+-rwxr-xr-x    1 root     root         1116 Dec 11  2001 ppp
+-rwxr-xr-x    1 root     root         1013 Jun  8  2001 procps.sh
+-rwxr-xr-x    1 root     root         2235 May 29  2002 rc
+-rwxr-xr-x    1 root     root         1190 May 29  2002 rcS
+-rwxr-xr-x    1 root     root          197 May 29  2002 reboot
+-rwxr-xr-x    1 root     root          261 May 29  2002 rmnologin
+-rwxr-xr-x    1 root     root          358 May 29  2002 sendsigs
+-rwxr-xr-x    1 root     root         3797 Nov  8  2001 setserial
+-rwxr-xr-x    1 root     root          499 May 29  2002 single
+-rwxr-xr-x    1 root     root         1771 May 29  2002 skeleton
+-rwxr-xr-x    1 root     root         1699 Jun 29  2002 ssh
+-rwxr-xr-x    1 root     root         1908 Jan  4  2002 sysklogd
+-rwxr-xr-x    1 root     root          505 May 29  2002 umountfs
+-rwxr-xr-x    1 root     root          436 May 29  2002 umountnfs.sh
+-rwxr-xr-x    1 root     root         1176 May 29  2002 urandom
+-rwxr-xr-x    1 root     root          702 Mar  1 13:59 zope
+</pre>
+<hr>
+<h2><a name="User and Login Information">User and Login Information</a></h2>
+<h3><a name="cat /etc/passwd"></a></h3>
+# cat /etc/passwd
+<pre>
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/bin/sh
+bin:x:2:2:bin:/bin:/bin/sh
+sys:x:3:3:sys:/dev:/bin/sh
+sync:x:4:100:sync:/bin:/bin/sync
+games:x:5:100:games:/usr/games:/bin/sh
+man:x:6:100:man:/var/cache/man:/bin/sh
+lp:x:7:7:lp:/var/spool/lpd:/bin/sh
+mail:x:8:8:mail:/var/mail:/bin/sh
+news:x:9:9:news:/var/spool/news:/bin/sh
+uucp:x:10:10:uucp:/var/spool/uucp:/bin/sh
+proxy:x:13:13:proxy:/bin:/bin/sh
+postgres:x:31:32:postgres:/var/lib/postgres:/bin/sh
+www-data:x:33:33:www-data:/var/www:/bin/sh
+backup:x:34:34:backup:/var/backups:/bin/sh
+operator:x:37:37:Operator:/var:/bin/sh
+list:x:38:38:SmartList:/var/list:/bin/sh
+irc:x:39:39:ircd:/var:/bin/sh
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/bin/sh
+nobody:x:65534:65534:nobody:/home:/bin/sh
+umibozu:x:1000:1000:umibozu,,,:/home/umibozu:/bin/bash
+sshd:x:100:65534::/var/run/sshd:/bin/false
+postfix:x:101:101::/var/spool/postfix:/bin/false
+spop3d:x:102:8::/var/state/solid-pop3d:/bin/false
+tarzeau:x:1001:1001:.,,,:/home/tarzeau:/bin/bash
+kpanic:x:1002:1002:.,,,:/home/kpanic:/bin/bash
+</pre>
+<h3><a name="cat /etc/shadow"></a></h3>
+# cat /etc/shadow
+<pre>
+</pre>
+<h3><a name="cat /etc/group"></a></h3>
+# cat /etc/group
+<pre>
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:
+tty:x:5:
+disk:x:6:
+lp:x:7:lp
+mail:x:8:
+news:x:9:
+uucp:x:10:
+proxy:x:13:
+kmem:x:15:
+dialout:x:20:
+fax:x:21:
+voice:x:22:
+cdrom:x:24:
+floppy:x:25:
+tape:x:26:
+sudo:x:27:
+audio:x:29:tarzeau
+dip:x:30:
+postgres:x:32:
+www-data:x:33:
+backup:x:34:
+operator:x:37:
+list:x:38:
+irc:x:39:
+src:x:40:
+gnats:x:41:
+shadow:x:42:
+utmp:x:43:
+video:x:44:
+staff:x:50:
+games:x:60:
+users:x:100:
+nogroup:x:65534:
+umibozu:x:1000:
+postfix:x:101:
+postdrop:x:102:
+tarzeau:x:1001:
+kpanic:x:1002:
+</pre>
+<h3><a name="cat /etc/shells"></a></h3>
+# cat /etc/shells
+<pre>
+# /etc/shells: valid login shells
+/bin/ash
+/bin/bash
+/bin/csh
+/bin/sh
+/usr/bin/es
+/usr/bin/ksh
+/bin/ksh
+/usr/bin/rc
+/usr/bin/tcsh
+/bin/tcsh
+/usr/bin/zsh
+/bin/sash
+/bin/zsh
+/usr/bin/esh
+</pre>
+<h3><a name="env"></a></h3>
+# env
+<pre>
+PWD=/home/tarzeau/ibackup-2.23
+USER=tarzeau
+MAIL=/var/mail/tarzeau
+SSH_CLIENT=117.162.1.23 63278 22
+LOGNAME=tarzeau
+SHLVL=2
+SHELL=/bin/bash
+HOME=/home/tarzeau
+TERM=xterm
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games
+SSH_TTY=/dev/pts/0
+_=/usr/bin/env
+</pre>
+<h3><a name="crontab -l"></a></h3>
+# crontab -l
+<pre>
+</pre>
+</body>
+</html>
