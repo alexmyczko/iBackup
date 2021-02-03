@@ -1,7 +1,6 @@
 ![iBackup](ibackup.png?raw=true "iBackup")
 
 <body text="#000000" link="#000000" vlink="#000000" alink="#000000" bgcolor="#ffffff">
-<img src="ibackup.png" border=0 alt="iBackup Logo"><font face="lucida, verdana, helvetica" size=2>
 Version 2.27 <b><a href="ibackup-2.27.tar.gz">download .tar.gz</a></b> | <b><a href="changelog">changelog</a></b> |
 <b><a href="http://packages.debian.org/ibackup">Debian</a></b> |
 <b><a href="ibackup-sol-all.pkg">Solaris</a></b> |
@@ -114,10 +113,4 @@ Please note the content and services related to ibackup are not related to onlin
 The use of ibackup name here refers to a set of tools and utilities for backups on unix alike platforms.
 The trademark rights to the IBackup word and stylized logo are international.<p>
 
-27/05/2003 <b><a href="mailto:gurkan@linuks.mine.nu?subject=i%20like%20iBackup">gurkan@linuks.mine.nu</a>, <a href="http://www.linuks.mine.nu/">www.linuks.mine.nu</a></b>
-<p>
-<center>
-<a href="http://www.debian.org/"><img src="woody-holycow-debian.jpg" border=0 alt="debian banner"></a>
-</center>
-<br>
-</font>
+27/05/2003-03/02/2021 alex@aiei.ch
