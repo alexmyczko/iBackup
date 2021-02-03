@@ -1,0 +1,29 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.TH IBACKUP 1 "March 14, 2003"
+.SH NAME
+ibackup \- backup configuration files
+.SH SYNOPSIS
+.B ibackup
+.RI "[configuration|system|whatever]"
+.SH DESCRIPTION
+Create a backup of configuration files using tar with the options -cflpX, with support
+to exclude files. The script needs bash, if you do not have bash in /bin/bash,
+create a link or change the first line of /usr/bin/ibackup.
+The backup will be named hostname_date_time.tar, if gzip is
+installed it will be gzipped (.gz) otherwise if compress is installed compressed (.Z).
+There is an option to encrypt the tarball, if openssl is installed. You can also let the tarball upload to some
+other host, if you have scp (secure copy, comes with openssh).
+
+It is meant to be used automated as a cronjob.
+.SH NOTES
+Please edit /etc/ibackup.conf to fit your needs.
+.SH SEE ALSO
+.BR sysconf (1),
+.BR tar (1),
+.BR gzip (1),
+.BR compress (1),
+.BR scp (1),
+.BR nail (1),
+.BR openssl (1).
+.SH AUTHOR
+This manual page was written by Gürkan Myczko <gurkan@phys.ethz.ch>.

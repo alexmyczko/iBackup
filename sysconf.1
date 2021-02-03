@@ -1,0 +1,28 @@
+.TH SYSCONF 1 "Mar 14, 2003"
+.SH NAME
+sysconf \- System configuration
+.SH SYNOPSIS
+.B sysconf [\fB-a]\fR
+.SH DESCRIPTION
+Generates a complete and full-featured report about the system it is
+running. The report is generated in HTML format and by default sends
+output to stdout so in order to be useful one needs to redirect the
+output to a file or a web browser.
+.PP
+Some commands which sysconf uses need root privileges (currently only
+retrieving user information /etc/shadow) so if you need this information
+available in your report you should better execute sysconf as root.
+.BR
+.SH EXAMPLES
+The example below will generate the report as a file named output.html:
+.PP
+.B sysconf > outputfile.html
+.PP
+The example below will generate the report in ascii format and display it:
+.PP
+.B sysconf -a | more
+.PP
+.SH AUTHOR
+This manual page was written by André Luís Lopes <andrelop@ig.com.br>
+for Debian GNU/Linux, but can be used by any other GNU/Linux system
+and/or Unices.
