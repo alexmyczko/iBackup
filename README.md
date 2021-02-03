@@ -36,20 +36,17 @@ Run ibackup with one or more of the following parameters:
 <tr><td>postgresql-dump</td><td>save <b><a href="http://www.postgresql.org/">PostgreSQL</a></b> configuration and db (dump)</td></tr>
 <tr><td>apache</td><td>save <b><a href="http://www.apache.org/">Apache</a></b> configuration</td></tr>
 <tr><td>squid</td><td>save <b><a href="http://www.squid-cache.org/">Squid</a></b> configuration</td></tr>
-<tr><td>bind</td><td>save <b><a href="http://www.isc.org/products/BIND/">Bind</a></b> configuration</td></tr>
+<tr><td>bind</td><td>save <b><a href="https://www.isc.org/bind/">Bind</a></b> configuration</td></tr>
 <tr><td>pks</td><td>save <b><a href="http://pks.sourceforge.net/">OpenPGP Public Key Server</a></b> configuration and data</td></tr>
 <tr><td>mailman</td><td>save <b><a href="http://www.list.org/">Mailman</a></b> configuration and data</td></tr>
-<tr><td>aide</td><td>save <b><a href="http://www.cs.tut.fi/~rammer/aide.html">AIDE</a></b> configuration</td></tr>
+<tr><td>aide</td><td>save <b><a href="https://aide.github.io">AIDE</a></b> configuration</td></tr>
 <!-- <tr><td>proc</td><td>save most of /proc</td></tr> -->
 <tr><td>raptor</td><td>save <b><a href="http://www.symantec.com/product/">Raptor/Symantec Firewall</a></b> configuration</td></tr>
 <tr><td>viruswall</td><td>save <b><a href="http://www.trendmicro.com/US/Products/Internet+Gateway/InterScan+VirusWall/default.htm">Trend Micro Interscan Viruswall</a></b> configuration</td></tr>
 <tr><td>checkpoint</td><td>save <b><a href="http://www.checkpoint.com/products/protect/firewall-1.html">Checkpoint Firewall</a></b> configuration</td></tr>
 <tr><td>ipso</td><td>save Checkpoint and system configuration of Nokia IPSO</td></tr>
 <tr><td>citrix</td><td>save <b><a href="http://www.citrix.com/">Citrix ICA Client</a></b> configuration</td></tr>
-<tr><td>sb_fullcluster</td><td>save <b><a href="http://www.stonebeat.com/">Stonebeat</a></b> Fullcluster configuration</td></tr>
-<tr><td>sb_servercluster</td><td>save <b><a href="http://www.stonebeat.com/">Stonebeat</a></b> Servercluster configuration</td></tr>
 <tr><td>finjan</td><td>save <b><a href="http://www.finjan.com/">Finjan Surfingate</a></b> configuration</td></tr>
-<tr><td>rainfinity</td><td>save <b><a href="http://www.rainfinity.com/">Rainfinity</a></b> configuration</td></tr>
 <tr><td>--compress</td><td>compress the tarball</td></tr>
 <tr><td>--dont-compress</td><td>don't compress the tarball</td></tr>
 <tr><td>--encrypt | -e</td><td>encrypt the tarball</td></tr>
