@@ -20,8 +20,8 @@ make install install-config<br>
 $EDITOR <b><a href="ibackup.conf">/etc/ibackup.conf</a></b><p>
 
 <b>Dependencies</b><br>
-<b><a href="ftp://ftp.gnu.org/gnu/bash/">GNU Bash</a></b> (recommended)<br>
-<b><a href="http://www.openssh.org/">OpenSSH</a></b> (recommended)<p>
+<b><a href="https://www.gnu.org/software/bash/">GNU Bash</a></b> (recommended)<br>
+<b><a href="https://www.openssh.com/">OpenSSH</a></b> (recommended)<p>
 
 <b>Usage</b><br>
 Run ibackup with one or more of the following parameters:
