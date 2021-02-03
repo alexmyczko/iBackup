@@ -1,5 +1,5 @@
 #! /bin/sh
-#sysconf System Configuration, gurkan@linuks.mine.nu, www.linuks.mine.nu/ibackup/
+#sysconf System Configuration, gurkan@phys.ethz.ch
 version="0.68"
 
 if [ "${1}x" = "-ax" ]; then

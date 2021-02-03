@@ -1,5 +1,5 @@
 #! /bin/sh
-#iBackup, gurkan@linuks.mine.nu, www.linuks.mine.nu/ibackup/
+#iBackup, gurkan@phys.ethz.ch
 VERSION=2.27
 
 if [ "x$ZSH_NAME" != x ]; then emulate sh; fi
